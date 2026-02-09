@@ -3,88 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>I’m Sorry</title>
+  <title>For My Poo 💕</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(135deg, #ffd6e8, #fff1f7);
+      background: linear-gradient(135deg, #ffe4ef, #fff7fb);
       font-family: 'Segoe UI', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      color: #5a2a4a;
+      color: #6a2b4d;
+      transition: background 2s ease;
+    }
+
+    body.forgiven {
+      background: linear-gradient(135deg, #ffd1dc, #fff0d9);
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px 20px;
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 34px 24px;
+      border-radius: 26px;
       text-align: center;
-      width: 90%;
+      width: 92%;
       max-width: 420px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      animation: fadeIn 1.2s ease;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+      animation: fadeIn 1.4s ease;
     }
 
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       min-height: 3em;
+      margin-bottom: 10px;
     }
 
-    p {
-      margin-top: 15px;
-      font-size: 1.15rem;
+    .main-text {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-top: 10px;
       opacity: 0;
       animation: appear 1s ease forwards;
       animation-delay: 3.8s;
     }
 
-    .poo {
-      margin-top: 18px;
-      font-size: 1.4rem;
-      font-weight: bold;
-      opacity: 0;
-      animation: bounce 2s infinite;
-      animation-delay: 4.8s;
-      animation-fill-mode: forwards;
-    }
-
     .buttons {
       margin-top: 30px;
       position: relative;
-      height: 120px;
+      height: 140px;
     }
 
     button {
-      padding: 12px 18px;
+      padding: 14px 22px;
       border: none;
-      border-radius: 25px;
+      border-radius: 30px;
       font-size: 1rem;
       cursor: pointer;
-      transition: transform 0.2s ease;
       touch-action: manipulation;
+      transition: transform 0.2s ease;
     }
 
-    .forgive {
-      background: #ff6fae;
+    .yes {
+      background: #ff77b7;
       color: white;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(255,119,183,0.4);
     }
 
-    .forgive:active {
-      transform: scale(0.95);
-    }
+    .yes:active { transform: scale(0.95); }
 
-    .nope {
+    .no {
       position: absolute;
-      background: #e0a3bd;
+      background: #e7a5c6;
       color: white;
+    }
+
+    .hidden-love {
+      margin-top: 22px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 2s ease;
+      color: #c2185b;
+    }
+
+    .hidden-love.show {
+      opacity: 1;
+    }
+
+    .music {
+      margin-top: 22px;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    .music.show {
+      opacity: 1;
+    }
+
+    /* floating hearts */
+    .float {
+      position: absolute;
+      bottom: -20px;
+      font-size: 18px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.85;
     }
 
     @keyframes fadeIn {
@@ -96,29 +123,9 @@
       to { opacity: 1; }
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
-
-    /* Floating hearts */
-    .heart {
-      position: absolute;
-      bottom: -20px;
-      font-size: 18px;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.8;
-    }
-
     @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.9;
-      }
-      100% {
-        transform: translateY(-110vh) scale(1.5);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
     }
   </style>
 </head>
@@ -128,95 +135,73 @@
   <div class="card">
     <h1 id="typing"></h1>
 
-    <p>
-      I messed up and I'm sorry,<br>
-      please forgive me
-    </p>
-
-    <div class="poo">
-      My Poo 💕
+    <div class="main-text">
+      I am truly sorry,<br>
+      I messed up
     </div>
 
     <div class="buttons">
-      <button class="forgive" onclick="forgiven()">Forgive 💖</button>
-      <button class="nope" id="nope">Won’t forgive 🙃</button>
+      <button class="yes" onclick="forgive()">Forgive Poo? 💕</button>
+      <button class="no" id="noBtn">Won’t Forgive Poo 🙃</button>
+    </div>
+
+    <div class="hidden-love" id="loveMsg">
+      I love you so much 💖
+    </div>
+
+    <div class="music" id="musicBox">
+      <iframe style="border-radius:12px"
+        src="https://open.spotify.com/embed/track/6kYEsnj9pWb7t6kZ7o6p6k?utm_source=generator"
+        width="100%" height="80" frameBorder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+      </iframe>
     </div>
   </div>
 
   <script>
-    // Typing effect
-    const text = "Hey… I have something important to say.";
-    const typingEl = document.getElementById("typing");
-    let index = 0;
-
+    // typing
+    const text = "Hey Poo… please let me say this.";
+    const typing = document.getElementById("typing");
+    let i = 0;
     function typeText() {
-      if (index < text.length) {
-        typingEl.textContent += text.charAt(index);
-        index++;
-        setTimeout(typeText, 75);
+      if (i < text.length) {
+        typing.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeText, 80);
       }
     }
     typeText();
 
-    // Floating hearts
-    const hearts = ["❤️", "💖", "💕", "💗"];
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
-      heart.style.fontSize = 16 + Math.random() * 20 + "px";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 8000);
-    }
-    setInterval(createHeart, 700);
+    // floating hearts
+    const floats = ["❤️", "💖", "💕", "✨", "💗"];
+    setInterval(() => {
+      const el = document.createElement("div");
+      el.className = "float";
+      el.textContent = floats[Math.floor(Math.random() * floats.length)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = 4 + Math.random() * 4 + "s";
+      el.style.fontSize = 16 + Math.random() * 20 + "px";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 8000);
+    }, 700);
 
-    // Runaway button (mouse + touch)
-    const nope = document.getElementById("nope");
+    // runaway button
+    const noBtn = document.getElementById("noBtn");
     const container = document.querySelector(".buttons");
-
     function moveButton() {
-      const maxX = container.clientWidth - nope.offsetWidth;
-      const maxY = container.clientHeight - nope.offsetHeight;
-
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-
-      nope.style.left = x + "px";
-      nope.style.top = y + "px";
+      const maxX = container.clientWidth - noBtn.offsetWidth;
+      const maxY = container.clientHeight - noBtn.offsetHeight;
+      noBtn.style.left = Math.random() * maxX + "px";
+      noBtn.style.top = Math.random() * maxY + "px";
     }
+    noBtn.addEventListener("mouseenter", moveButton);
+    noBtn.addEventListener("touchstart", moveButton);
 
-    nope.addEventListener("mouseenter", moveButton);
-    nope.addEventListener("touchstart", moveButton);
-
-    // Forgiven action
-    function forgiven() {
-      document.body.innerHTML = `
-        <div style="
-          height:100vh;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          background:linear-gradient(135deg,#ffd6e8,#fff1f7);
-          font-family:'Segoe UI',sans-serif;
-          color:#5a2a4a;
-          text-align:center;
-          padding:20px;">
-          <div style="
-            background:white;
-            padding:40px;
-            border-radius:20px;
-            box-shadow:0 20px 40px rgba(0,0,0,0.1);">
-            <h1>Thank you 🥹❤️</h1>
-            <p style="font-size:1.2rem;margin-top:15px;">
-              I promise to do better.<br><br>
-              Forever yours,<br>
-              My Poo 💕
-            </p>
-          </div>
-        </div>
-      `;
+    // forgiveness
+    function forgive() {
+      document.body.classList.add("forgiven");
+      document.getElementById("loveMsg").classList.add("show");
+      document.getElementById("musicBox").classList.add("show");
     }
   </script>
 
